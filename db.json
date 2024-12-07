@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123"
+    },
+    {
+      "id": "2",
+      "username": "eric",
+      "password": "123"
+    },
+    {
+      "id": "3",
+      "username": "Brandon",
+      "password": "123"
+    }
+  ],
+  "auth": {
+    "isAuthenticated": false
+  },
+  "workers": [
+    {
+      "id": "1",
+      "firstname": "Carlos",
+      "lastname": "Mendez",
+      "dni": 18345522,
+      "typeofuser": "Blacksmith"
+    },
+    {
+      "id": "2",
+      "firstname": "Monica",
+      "lastname": "Carvajal",
+      "dni": 25634532,
+      "typeofuser": "Architect"
+    },
+    {
+      "id": "3",
+      "firstname": "Jose",
+      "lastname": "Ruiz",
+      "dni": 28934924,
+      "typeofuser": "Worker"
+    }
+  ],
+  "complaints": [
+    {
+      "complaints_id": 1,
+      "user_id": 2,
+      "problems_id": 1,
+      "description": "Luz dañada en la calle principal",
+      "id_parish": 1,
+      "address": "Avenida Libertador",
+      "status_id": 1,
+      "complaint_date": "2024-11-16",
+      "id": "a711"
+    },
+    {
+      "complaints_id": 2,
+      "user_id": 3,
+      "problems_id": 2,
+      "description": "Huecos en la calle de la escuela",
+      "id_parish": 2,
+      "address": "Calle Bolívar",
+      "status_id": 2,
+      "complaint_date": "2024-11-17",
+      "id": "2c0d"
+    }
+  ],
+  "problems": [
+    {
+      "problems_id": 1,
+      "name": "Alumbrado Público",
+      "id": "1f53"
+    },
+    {
+      "problems_id": 2,
+      "name": "Asfaltado Vial",
+      "id": "3e15"
+    }
+  ],
+  "parishes": [
+    {
+      "id": "1",
+      "name": "San Juan Bautista"
+    },
+    {
+      "id": "2",
+      "name": "La Concordia"
+    }
+  ],
+  "statusComplaints": [
+    {
+      "id": "1",
+      "name": "Recibido"
+    },
+    {
+      "id": "2",
+      "name": "En Revisión"
+    },
+    {
+      "id": "3",
+      "name": "Aceptado"
+    }
+  ]
+}

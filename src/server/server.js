@@ -1,0 +1,12 @@
+import express from "express";
+import userRoutes from "../routes/users.routers.js"
+import { PORT } from "../config.js";
+
+const app = express();
+
+
+app.use(userRoutes);
+
+// Iniciar el servidor
+app.listen(PORT);
+console.log("Server on port", PORT)

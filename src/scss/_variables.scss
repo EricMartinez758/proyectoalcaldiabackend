@@ -1,0 +1,45 @@
+// Variable overrides
+//
+// If you want to customize your project please add your variables below.
+
+// Header (Menú superior) Color
+$header-bg: #c5151c; 
+$header-color: #ffffff; 
+$header-border-color: #a01315; 
+// Sidebar (Menú lateral) Color
+$sidebar-bg: #032d5f; 
+$sidebar-brand-bg: #032d5f; 
+$sidebar-nav-link-color: #ffffff;
+$sidebar-nav-link-hover-bg: #1f3d6a;
+$sidebar-nav-link-active-bg: #c5151c; 
+$sidebar-nav-link-hover-color: #ffffff; 
+$footer-bg: #032d5f; 
+$footer-color: #ffffff; 
+// Botón primario
+$btn-primary-bg: #032d5f; 
+$btn-primary-color: #ffffff; 
+
+// Botón secundario
+$btn-secondary-bg: #c5151c; 
+$btn-secondary-color: #ffffff; 
+
+// Botón de éxito
+$btn-success-bg: #c5151c;
+$btn-success-color: #ffffff; 
+// Tabs
+$nav-tabs-link-active-bg: #032d5f;
+$nav-tabs-link-active-color: #ffffff; 
+// Color de fondo del cuerpo
+$body-bg: #f8f9fa; 
+$body-color: #032d5f; 
+
+// Color principal y secundario
+$primary: #c5151c; 
+$secondary: #032d5f; 
+
+// Colores de enlaces
+$link-color: #032d5f;
+$link-hover-color: #c5151c; 
+
+
+$enable-deprecation-messages: false !default;
