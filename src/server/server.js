@@ -3,8 +3,7 @@ import userRoutes from "../routes/users.routers.js"
 import { PORT } from "../config.js";
 
 const app = express();
-
-
+app.use(express.json());
 app.use(userRoutes);
 
 // Iniciar el servidor

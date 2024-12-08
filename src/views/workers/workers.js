@@ -8,17 +8,18 @@ function Workers() {
     id: "",
     firstname: "",
     lastname: "",
-    dni: "",
-    typeofuser: "",
+    phone: "",
+    role: "",
+    status: "",
   });
 
+  // Fetch initial data
   useEffect(() => {
-    
-    fetch("http://localhost:5000/workers")
+    fetch("http://localhost:4000/employees")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data: ", error));
-  }, []); 
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,14 @@ function Workers() {
   };
 
   const openInsertModal = () => {
-    setForm({ id: "", firstname: "", lastname: "", dni: "", typeofuser: "" });
+    setForm({
+      id: "",
+      firstname: "",
+      lastname: "",
+      phone: "",
+      role: "worker", 
+      status: "active", 
+    });
     setModalInsert(true);
   };
 
@@ -40,27 +48,23 @@ function Workers() {
   const closeEditModal = () => setModalUpdate(false);
 
   const handleInsert = () => {
-    const newData = { ...form, id: data.length + 1 };
-
-   
-    fetch("http://localhost:5000/workers", {
+    fetch("http://localhost:4000/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(form),
     })
       .then((response) => response.json())
-      .then((newWorker) => {
-        setData([...data, newWorker]);
+      .then((newEmployee) => {
+        setData([...data, newEmployee]);
         closeInsertModal();
       })
       .catch((error) => console.error("Error inserting data: ", error));
   };
 
   const handleEdit = () => {
-   
-    fetch(`http://localhost:5000/workers/${autoincrement.id}`, {
+    fetch(`http://localhost:4000/employees/${form.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -68,9 +72,9 @@ function Workers() {
       body: JSON.stringify(form),
     })
       .then((response) => response.json())
-      .then((updatedWorker) => {
+      .then((updatedEmployee) => {
         const updatedData = data.map((item) =>
-          item.id === form.id ? updatedWorker : item
+          item.id === form.id ? updatedEmployee : item
         );
         setData(updatedData);
         closeEditModal();
@@ -80,8 +84,7 @@ function Workers() {
 
   const handleDelete = (id) => {
     if (window.confirm("Do you want to delete this record?")) {
-      
-      fetch(`http://localhost:5000/workers/${id}`, {
+      fetch(`http://localhost:4000/employees/${id}`, {
         method: "DELETE",
       })
         .then(() => {
@@ -95,7 +98,7 @@ function Workers() {
   return (
     <div className="container mt-4">
       <button className="btn btn-primary mb-3" onClick={openInsertModal}>
-        Insert New Worker
+        Insert New Employee
       </button>
 
       <table className="table">
@@ -104,8 +107,9 @@ function Workers() {
             <th>ID</th>
             <th>Firstname</th>
             <th>Lastname</th>
-            <th>DNI</th>
-            <th>Type of User</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -115,13 +119,20 @@ function Workers() {
               <td>{item.id}</td>
               <td>{item.firstname}</td>
               <td>{item.lastname}</td>
-              <td>{item.dni}</td>
-              <td>{item.typeofuser}</td>
+              <td>{item.phone}</td>
+              <td>{item.role}</td>
+              <td>{item.status}</td>
               <td>
-                <button className="btn btn-success btn-sm mx-1" onClick={() => openEditModal(item)}>
+                <button
+                  className="btn btn-success btn-sm mx-1"
+                  onClick={() => openEditModal(item)}
+                >
                   Edit
                 </button>
-                <button className="btn btn-danger btn-sm mx-1" onClick={() => handleDelete(item.id)}>
+                <button
+                  className="btn btn-danger btn-sm mx-1"
+                  onClick={() => handleDelete(item.id)}
+                >
                   Delete
                 </button>
               </td>
@@ -136,7 +147,7 @@ function Workers() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Insert Worker</h5>
+                <h5 className="modal-title">Insert Employee</h5>
                 <button className="btn-close" onClick={closeInsertModal}></button>
               </div>
               <div className="modal-body">
@@ -156,18 +167,29 @@ function Workers() {
                 />
                 <input
                   type="text"
-                  name="dni"
-                  placeholder="DNI"
+                  name="phone"
+                  placeholder="Phone"
                   className="form-control mb-2"
                   onChange={handleChange}
                 />
-                <input
-                  type="text"
-                  name="typeofuser"
-                  placeholder="Type of User"
-                  className="form-control"
+                <select
+                  name="role"
+                  className="form-control mb-2"
+                  value={form.role}
                   onChange={handleChange}
-                />
+                >
+                  <option value="worker">Worker</option>
+                  <option value="supervisor">Supervisor</option>
+                </select>
+                <select
+                  name="status"
+                  className="form-control"
+                  value={form.status}
+                  onChange={handleChange}
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
               </div>
               <div className="modal-footer">
                 <button className="btn btn-primary" onClick={handleInsert}>
@@ -188,7 +210,7 @@ function Workers() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Edit Worker</h5>
+                <h5 className="modal-title">Edit Employee</h5>
                 <button className="btn-close" onClick={closeEditModal}></button>
               </div>
               <div className="modal-body">
@@ -210,20 +232,30 @@ function Workers() {
                 />
                 <input
                   type="text"
-                  name="dni"
-                  placeholder="DNI"
+                  name="phone"
+                  placeholder="Phone"
                   className="form-control mb-2"
-                  value={form.dni}
+                  value={form.phone}
                   onChange={handleChange}
                 />
-                <input
-                  type="text"
-                  name="typeofuser"
-                  placeholder="Type of User"
+                <select
+                  name="role"
+                  className="form-control mb-2"
+                  value={form.role}
+                  onChange={handleChange}
+                >
+                  <option value="worker">Worker</option>
+                  <option value="supervisor">Supervisor</option>
+                </select>
+                <select
+                  name="status"
                   className="form-control"
-                  value={form.typeofuser}
+                  value={form.status}
                   onChange={handleChange}
-                />
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
               </div>
               <div className="modal-footer">
                 <button className="btn btn-primary" onClick={handleEdit}>
