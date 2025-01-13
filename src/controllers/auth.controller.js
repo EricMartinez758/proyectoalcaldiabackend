@@ -87,4 +87,33 @@ export const logout = (req, res) => {
   res.status(200).json({ message: "Successfully logged out" });
 };
 
-export const profile = (req, res) => res.send('profile');
+export const profile = async (req, res) => {
+  try {
+ 
+    const userDni = req.users.dni;
+
+
+    const result = await pool.query(
+      "SELECT firstname, lastname, dni, email FROM users WHERE dni = $1",
+      [userDni]
+    );
+
+ 
+    if (result.rows.length === 0) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const userFound = result.rows[0];
+
+    
+    return res.json({
+      firstname: userFound.firstname,
+      lastname: userFound.lastname,
+      dni: userFound.dni,
+      email: userFound.email,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error retrieving user profile" });
+  }
+};
